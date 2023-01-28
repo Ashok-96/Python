@@ -1,0 +1,12 @@
+special chars
+=================================================
+1. write special chars only inside quotes-->'',""
+
+\n->New line
+\b->backspace
+\t->tabspace
+\->escape symbol
+\a -->alert sound
+==================================================
+
+

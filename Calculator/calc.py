@@ -1,10 +1,14 @@
 #Simple Calculator using python
 from tkinter import *
+import tkinter.ttk as ttk
 root = Tk()
+class Window:
+    def __init__(self, master):
+        style=ttk.Style()
+        style.theme_use('winnative')
 root.title("Calculator")
+#('winnative', 'clam', 'alt', 'default', 'classic', 'vista', 'xpnative')
 root.geometry("400x400")
-photo="./icon.ico"
-root.iconbitmap(photo)
 inputframe=Frame(root)
 inp=Entry(inputframe)
 i=1
@@ -12,7 +16,10 @@ j=1
 def equals():
     expression=inp.get()
     inp.delete(0,END)
-    result=eval(expression)
+    try:
+        result=eval(expression)
+    except Exception as e:
+        inp.insert(END,e)
     inp.insert(END, result)
 
 def fun(x):
@@ -48,4 +55,5 @@ divide.grid(row=4, column=5)
 
 inp.pack(side=TOP)   
 inputframe.grid(row=0,column=0)
+window=Window(root)
 root.mainloop()
