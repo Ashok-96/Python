@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.urls import reverse
 # Create your views here.
 months={
@@ -18,12 +18,15 @@ months={
     
 }
 def index(req):
-   return render(req, 'index.html')
-   """" month=''
+    month=''
     for i in months.keys():
-        month+=f'<li><a href="./{i}/">{i}</a></li>'
-    list_of_months=f'''<ol>{month}</ol>
-    '''
-    return HttpResponse(f'{list_of_months}')"""
+        month+=f'<li><a href="./{i}/" >{i}</a></li>'
+    list_of_months=f'''<ol>{month}</ol>'''
+    return HttpResponse(f"{list_of_months}")
+
 def display(req,month):
     return HttpResponse(f'<h2>{month}</h2>')
+
+def displays(req,num):
+    redirect_path=reverse("challenges", args=[months.keys()[num-1]])
+    return HttpResponseRedirect(redirect_path)
