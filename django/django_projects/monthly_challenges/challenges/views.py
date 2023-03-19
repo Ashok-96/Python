@@ -1,32 +1,46 @@
 from django.shortcuts import render
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect,HttpResponseNotFound,Http404
 from django.urls import reverse
 # Create your views here.
 months={
-    "January":'',
-    "February":'',
-    "March":'',
-    "April":'',
-    "May":'',
-    "June":'',  
-    "July":'',
-    "August":'',
-    "September":'',
-    "October":'',
-    "November":'',
-    "December":''
+    "January":'One month without alcohol and soda.',
+    "February":'One month of being total Vegan.',
+    "March":'One month of sugar detox.',
+    "April":'One month of running 1 mile each day.',
+    "May":'One month of yoga every day.',
+    "June":'One month of social media detox.',  
+    "July":'One month of caffeine detox.',
+    "August":'One month of eating only at home or home-cooked meal.',
+    "September":'One month of no Netflix and TV',
+    "October":'One month of daily reading for at least 30 minutes',
+    "November":'One month of daily mindfulness meditation for at least 20 minutes',
+    "December":'One month of doing a random act of kindness'
     
 }
-def index(req):
-    month=''
-    for i in months.keys():
-        month+=f'<li><a href="./{i}/" >{i}</a></li>'
-    list_of_months=f'''<ol>{month}</ol>'''
-    return HttpResponse(f"{list_of_months}")
+monthk=list(months.keys())
 
+def months_num(req,month):
+    id=monthk[month-1]
+    try:
+        return HttpResponseRedirect(f"./{id}")
+    except IndexError as msg:
+       raise Http404()
+        
+    
 def display(req,month):
-    return HttpResponse(f'<h2>{month}</h2>')
+   try: 
+        return render(req,'challenges.html',{
+        'month':month,
+        'challenge':months[month]
+    })
+   except:
+       raise Http404()
 
-def displays(req,num):
-    redirect_path=reverse("challenges", args=[months.keys()[num-1]])
-    return HttpResponseRedirect(redirect_path)
+
+        
+
+def index(req):
+    return render(req,'index.html',{
+        "months":monthk
+    })
+

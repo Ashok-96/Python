@@ -1,5 +1,5 @@
-{% extends "base.html" %}
 
+{% extends "base.html" %}
 {% load static %}
 {%block css_files%}
 <link rel="stylesheet" href="{% static "/index.css" %}">
@@ -10,12 +10,9 @@
 {%block page_header%}
 {% include "./header.html" %}
 {%endblock%}
-
 {%block page_content%}
 
-<ul>
-    {% for i in months %}
-    <li><a href="./{{i}}">{{i}}</a></li>
-    {% endfor %}
-</ul>
+<h1>{{month|title}}</h1>
+<h1>"{{challenge|title}}"</h1>
+
 {%endblock%}
